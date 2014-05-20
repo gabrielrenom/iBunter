@@ -1,0 +1,412 @@
+﻿@model iBunter.Models.CompanyModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-primary" style="background: rgba(68, 105, 0, 0.5); position: relative; top: 30px; ">
+        <div class=" panel-heading" style="background-color: #446900; background: rgba(68, 105, 0, 0.3); font-size: 1.2em; ">
+            <h3 >What is your company feedback?</h3>
+    </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+               
+                @Html.ValidationSummary(true)
+
+                @*##################################################*@
+                @*## COLLAPSABLE COMPANY ENTRY FORM*@
+                @*##################################################*@
+                <div class="panel-group" id="accordion">
+                    @*## First Section ##*@
+                    <div id="panelone" class="panel panel-default entry-collapse-panel">
+                        <div class="panel-heading entry-collapse-header" >
+                            <h4 class="panel-title entry-form-font-colour">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseOne">
+                                    Section 1 - Feedback Company Details
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CompanyName, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                @*@Html.TextBox("CompanyName","", new { @class = "form-control" })*@
+                                                <div class="row">
+                                                    <div class="col-md-6">@Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })</div>
+                                                    <div class="col-md-1">
+                                                        <div style="text-align: left;">
+                                                            <img id="loading" style="display:none;" src="~/images/loading_indicator.gif" />
+                                                        </div>
+                                                    </div>                                                                                                       
+                                                </div>                                                
+                                                @*@Html.ValidationMessageFor(model => model.CompanyName)*@
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Website, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Website)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 entry-form-font-colour">
+                                        <blockquote>
+                                            <p>Company Details.</p>
+                                            <footer>Introduce the name of the company details where you work or have been working.</footer>
+                                        </blockquote>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2"><button id="firstsection" type="button" class="btn btn-default">Next Section</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*## Second Section ##*@
+                    <div id="paneltwo" class="panel panel-default entry-collapse-panel panel-not-filled">
+                        <div class="panel-heading entry-collapse-header">
+                            <h4 class="panel-title entry-form-font-colour">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseTwo">
+                                    Section 2 - Feedback Company Address
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+
+                                                <select id="Country" name="Country" class="combocountry form-control required">
+                                                    <option value=""></option>
+                                                    @{
+                                                        foreach (var country in (Dictionary<string, int>)ViewBag.countries)
+                                                        {
+                                                                    <option value="@country.Value">@country.Key</option>
+
+                                                            if (ViewBag.SelectedCountry != "" && ViewBag.SelectedCountry == @country.Value.ToString())
+                                                            {
+                                                                    <option value="@country.Value" selected>@country.Key</option>
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                <select id="City" name="City" class="combocity form-control required">
+                                                    @{
+                                                        if (ViewBag.SelectedCity != "" && ViewBag.SelectedCountry != "")
+                                                        {
+                                                            iBunter.Models.iBunterEntities db = new iBunter.Models.iBunterEntities();
+                                                            int _iId = Convert.ToInt32(ViewBag.SelectedCountry);
+                                                            var _vCities = db.Cities.Where(item => item.CountryId == _iId).ToDictionary(item => item.Id.ToString(), item => item.Name);
+
+                                                            foreach (var city in _vCities)
+                                                            {
+                                                                    <option value="@city.Key">@city.Value</option>
+                                                                if (ViewBag.SelectedCity == @city.Key.ToString())
+                                                                {
+                                                                    <option value="@city.Key" selected>@city.Value</option>
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Postcode)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Street, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(model => model.Street, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Street)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(model => model.Number, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Number)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 entry-form-font-colour">
+                                        <blockquote>
+                                            <p>Company Adress.</p>
+                                            <footer>Introduce the address of the company. If your company is a global organization, please introduce the location where you belong.</footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2"><button id="secondsection" type="button" class="btn btn-default">Next Section</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*## Third Section ##*@
+                    <div id="panelthree" class="panel panel-default entry-collapse-panel panel-not-filled">
+                        <div class="panel-heading entry-collapse-header">
+                            <h4 class="panel-title entry-form-font-colour">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseThree">
+                                    Section 3 - Feedback of the Company
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8 entry-form-font-colour">
+                                        <div class="form-group">
+                                            <h4>@Html.LabelFor(model => model.Subject, new { style = "font-weight: 500", @class = "control-label col-md-2" })</h4>
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+                                                @*@Html.ValidationMessageFor(model => model.Subject)*@
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <h4> @Html.LabelFor(model => model.Feedback, new { style = "font-weight: 500", @class = "control-label col-md-2" })</h4>
+                                            <div class="col-md-10">
+                                                @Html.TextAreaFor(model => model.Feedback, 10, 12, new { @class = "form-control" })
+                                                @*@Html.ValidationMessageFor(model => model.Feedback)*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 entry-form-font-colour">
+                                        <blockquote>
+                                            <p>Add Feeback.</p>
+                                            <footer>These Terms of Use for Customer Product Reviews may be revised at any time and from time to time by updating this posting. You should review these Terms of Use for Customer Product Reviews each time you submit a review because they are binding on you. Certain provisions of these Terms of Use for Customer Product Reviews may be superseded by legal notices or terms located on particular pages of this Website. Your continued use of this Website after any changes to these terms and conditions are posted will be considered acceptance of those changes.</footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2"><button id="thirdsection" type="button" class="btn btn-default">Next Section</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*## Fourth Section ##*@
+                    <div id="panelfour" class="panel panel-default entry-collapse-panel panel-not-filled">
+                        <div class="panel-heading entry-collapse-header">
+                            <h4 class="panel-title entry-form-font-colour">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseFour">
+                                    Section 4 - Company Rating
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8 entry-form-font-colour">
+                                        <div class="form-group">
+                                            @Html.Partial("_Rating", Model)
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 entry-form-font-colour">
+                                        <blockquote>
+                                            <p>Company Rating.</p>
+                                            <footer>Introduce the address of the company. If your company is a global organization, please introduce the location where you belong.</footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" value="Submit Feedback" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*##################################################*@
+              
+            </div>
+        </div>
+    </div>
+
+
+@*
+The following jquery code finds the selected option from country dropdown 
+and then sends an ajax call to the Home/getcity method 
+and finally populate it to the city dropdown 
+*@
+
+    
+}
+@section scripts {
+<script type="text/javascript">
+    $('body').on('change', '.combocountry', function () {
+        var selectedValue = $(this).val();
+        var selectedCountry = $(this).find(":selected").text();
+        var url = '@Url.Action("getcity", "Company")';        
+        $.get(url, { id: selectedValue, country: selectedCountry }, function (data) {
+            $(".combocity").html("<option value = \"\"></option>")
+            $.each(data, function (key, value) {           
+                $(".combocity").append("<option value = \"" + key + "\">" + value + "</option>");
+           });
+            $(".combocity").html()
+        });
+    });   
+</script>
+    <script src="@Url.Content("~/Scripts/rating.js")"></script>
+    
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+<style>
+
+    .ui-helper-hidden-accessible {
+        display:none;
+    }
+
+    body .ui-autocomplete {
+        background-color: transparent;
+    }
+
+        body .ui-autocomplete .ui-menu-item .ui-corner-all {
+            color: #303030;
+             font-weight: bold;
+        }
+
+        body .ui-autocomplete .ui-menu-item .ui-state-focus {
+            background-color: transparent;
+        }
+</style>
+    <script>
+    $("form").validate({
+        rules: {
+            'CompanyName': {
+                required: true
+            },
+            'Subject':
+            {
+                required: true
+            },
+            'Feedback':
+           {
+               required: true
+           }
+
+        },
+        messages: {
+            Country: { required: "Please select a Country from the list.", },
+            City: { required: "Please select a City from the list.", },
+            CompanyName: { required: "Please add a Company Name", },
+            Subject: { required: "Please insert the subject.", },
+            Feedback: { required: "Please insert the feedback.", },
+        }
+    });
+
+    $("#firstsection").click(function () {
+        $("#paneltwo").fadeIn();
+    });
+    $("#secondsection").click(function () {
+        $("#panelthree").fadeIn();
+    });
+    $("#thirdsection").click(function () {
+        $("#panelfour").fadeIn();
+    });
+    $(function () {
+
+        $('#CompanyName').autocomplete({
+            source: url = '@Url.Action("findCompany")', 
+            minLength: 1,
+            select: function (event, ui) {                
+                if (ui.item) {                    
+                    $('#CompanyName').val(ui.item.value);
+                    $('#Postcode').val(ui.item.value);
+                }
+            },
+            search: function (event, ui) {
+                $("#loading").show();
+            },
+            response: function(event, ui) {
+                $('#loading').hide();
+
+                if (ui.content.length === 0) {
+                    $(".ui-menu-item").hide();
+                }                
+            }
+        });
+        });
+
+        
+    $(function () {
+        // ratting system: https://github.com/irfan/jquery-star-rating
+        $('.ratting-item').rating(function (vote, event) {
+            var anchor = $(event.currentTarget),
+                pid = anchor.closest(".ratting-item").data("pid"),
+                url = '@Url.Action("Create", "Company")';
+
+            // show message while doing the database round trip
+            $('.ratting-item[data-pid=' + pid + ']')
+                .next()
+                .html("<small><small>Rated!</small></small>");
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: { rate: vote, id: pid },
+                success: function (data) {
+
+                    if (data.success) {
+                        // all went well, here you can say Thank you
+                        $('.ratting-item[data-pid=' + data.pid + ']')
+                            .next()
+                            .text("Voted! (product id: " + data.pid + ")");
+                    }
+                    else {
+                        // There must be an Exception error, let's show it
+                        $('.ratting-item[data-pid=' + data.pid + ']')
+                            .next()
+                            .text("Something went wrong...");
+                    }
+                },
+                error: function (err) {
+                    // the call thrown an error
+                    $('.result').text(err);
+                },
+                complete: function () {
+                    //$(".loading").hide();
+                }
+            });
+        });
+
+    });
+    </script>
+}

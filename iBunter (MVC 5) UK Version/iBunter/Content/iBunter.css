@@ -1,0 +1,31 @@
+﻿.entry-form-font-colour {
+     font-family: inherit;
+     color:white;
+}
+.entry-collapse-panel {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.label-entry-form-font{
+    font-weight: 500;
+}
+
+.panel-default > .entry-collapse-header {
+    background-color: rgba(255, 255, 255, 0.2) ;   
+}
+
+label.error {
+     color: #b94a48;
+     font-size: 14px;
+     font-family: "Arial";
+     font-weight:normal;
+}
+
+.panel-not-filled {
+    display:none;
+}
+
+.panel-filled {
+    display:normal;
+}
+

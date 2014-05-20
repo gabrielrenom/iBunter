@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="iBunterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.Address' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Postcode" Type="nvarchar" MaxLength="300" />
+          <Property Name="Road" Type="nvarchar" MaxLength="300" />
+          <Property Name="Street" Type="nvarchar" MaxLength="300" />
+          <Property Name="Website" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.City' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="Active" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.Contact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First Name" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Age" Type="nchar" MaxLength="10" />
+          <Property Name="Landline" Type="nvarchar" MaxLength="25" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="25" />
+          <Property Name="Twitter" Type="nvarchar" MaxLength="50" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="DefaultValues" Type="nvarchar" MaxLength="300" />
+          <Property Name="Active" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.Entity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EntityTypeId" Type="int" />
+          <Property Name="ContactId" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="AddressId" Type="int" />
+          <Property Name="Posted" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.EntityType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EntityType">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.Rating' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EntityTypeId" Type="int" />
+          <Property Name="RatingTypeId" Type="int" />
+          <Property Name="EntityId" Type="int" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Review" Type="nvarchar(max)" />
+          <Property Name="Posted" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.RatingType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RatingType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Entity" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.State' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="Active" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iBunter.dbo.UKCompanyDatabase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UKCompanyDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name=" CompanyNumber" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress CareOf" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress POBox" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress AddressLine1" Type="varchar" MaxLength="300" />
+          <Property Name=" RegAddress AddressLine2" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress PostTown" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress County" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress Country" Type="varchar" MaxLength="300" />
+          <Property Name="RegAddress PostCode" Type="varchar" MaxLength="300" />
+          <Property Name="CompanyCategory" Type="varchar" MaxLength="300" />
+          <Property Name="CompanyStatus" Type="varchar" MaxLength="300" />
+          <Property Name="CountryOfOrigin" Type="varchar" MaxLength="300" />
+          <Property Name="DissolutionDate" Type="varchar" MaxLength="300" />
+          <Property Name="IncorporationDate" Type="varchar" MaxLength="300" />
+          <Property Name="Accounts AccountRefDay" Type="varchar" MaxLength="300" />
+          <Property Name="Accounts AccountRefMonth" Type="varchar" MaxLength="300" />
+          <Property Name="Accounts NextDueDate" Type="varchar" MaxLength="300" />
+          <Property Name="Accounts LastMadeUpDate" Type="varchar" MaxLength="300" />
+          <Property Name="Accounts AccountCategory" Type="varchar" MaxLength="300" />
+          <Property Name="Returns NextDueDate" Type="varchar" MaxLength="300" />
+          <Property Name="Returns LastMadeUpDate" Type="varchar" MaxLength="300" />
+          <Property Name="Mortgages NumMortCharges" Type="varchar" MaxLength="300" />
+          <Property Name="Mortgages NumMortOutstanding" Type="varchar" MaxLength="300" />
+          <Property Name="Mortgages NumMortPartSatisfied" Type="varchar" MaxLength="300" />
+          <Property Name="Mortgages NumMortSatisfied" Type="varchar" MaxLength="300" />
+          <Property Name="SICCode SicText_1" Type="varchar" MaxLength="300" />
+          <Property Name="SICCode SicText_2" Type="varchar" MaxLength="300" />
+          <Property Name="SICCode SicText_3" Type="varchar" MaxLength="300" />
+          <Property Name="SICCode SicText_4" Type="varchar" MaxLength="300" />
+          <Property Name="LimitedPartnerships NumGenPartners" Type="varchar" MaxLength="300" />
+          <Property Name="LimitedPartnerships NumLimPartners" Type="varchar" MaxLength="300" />
+          <Property Name="URI" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_1 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_1 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_2 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_2 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_3 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_3 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_4 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_4 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_5 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_5 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_6 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_6 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_7 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_7 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_8 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_8 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_9 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_9 CompanyName" Type="varchar" MaxLength="300" />
+          <Property Name="PreviousName_10 CONDATE" Type="varchar" MaxLength="300" />
+          <Property Name=" PreviousName_10 CompanyName" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityContainer Name="iBunterModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Address].[Id] AS [Id], 
+    [Address].[Postcode] AS [Postcode], 
+    [Address].[Road] AS [Road], 
+    [Address].[Street] AS [Street], 
+    [Address].[Website] AS [Website], 
+    [Address].[CityId] AS [CityId], 
+    [Address].[CountryId] AS [CountryId], 
+    [Address].[StateId] AS [StateId]
+    FROM [dbo].[Address] AS [Address]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="City" EntityType="Self.City" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [City].[Id] AS [Id], 
+    [City].[CountryId] AS [CountryId], 
+    [City].[StateId] AS [StateId], 
+    [City].[Name] AS [Name], 
+    [City].[Active] AS [Active]
+    FROM [dbo].[City] AS [City]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Contact" EntityType="Self.Contact" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Contact].[Id] AS [Id], 
+    [Contact].[First Name] AS [First Name], 
+    [Contact].[Surname] AS [Surname], 
+    [Contact].[DisplayName] AS [DisplayName], 
+    [Contact].[CompanyName] AS [CompanyName], 
+    [Contact].[Age] AS [Age], 
+    [Contact].[Landline] AS [Landline], 
+    [Contact].[Mobile] AS [Mobile], 
+    [Contact].[Twitter] AS [Twitter], 
+    [Contact].[Facebook] AS [Facebook]
+    FROM [dbo].[Contact] AS [Contact]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Country" EntityType="Self.Country" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Country].[Id] AS [Id], 
+    [Country].[Name] AS [Name], 
+    [Country].[Code] AS [Code], 
+    [Country].[DefaultValues] AS [DefaultValues], 
+    [Country].[Active] AS [Active]
+    FROM [dbo].[Country] AS [Country]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Entity" EntityType="Self.Entity" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Entity].[Id] AS [Id], 
+    [Entity].[EntityTypeId] AS [EntityTypeId], 
+    [Entity].[ContactId] AS [ContactId], 
+    [Entity].[Email] AS [Email], 
+    [Entity].[AddressId] AS [AddressId], 
+    [Entity].[Posted] AS [Posted]
+    FROM [dbo].[Entity] AS [Entity]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EntityType" EntityType="Self.EntityType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EntityType].[id] AS [id], 
+    [EntityType].[Name] AS [Name]
+    FROM [dbo].[EntityType] AS [EntityType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Rating" EntityType="Self.Rating" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Rating].[Id] AS [Id], 
+    [Rating].[EntityTypeId] AS [EntityTypeId], 
+    [Rating].[RatingTypeId] AS [RatingTypeId], 
+    [Rating].[EntityId] AS [EntityId], 
+    [Rating].[Rating] AS [Rating], 
+    [Rating].[Review] AS [Review], 
+    [Rating].[Posted] AS [Posted]
+    FROM [dbo].[Rating] AS [Rating]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RatingType" EntityType="Self.RatingType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RatingType].[Id] AS [Id], 
+    [RatingType].[Name] AS [Name], 
+    [RatingType].[Entity] AS [Entity]
+    FROM [dbo].[RatingType] AS [RatingType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="State" EntityType="Self.State" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [State].[Id] AS [Id], 
+    [State].[CountryId] AS [CountryId], 
+    [State].[Name] AS [Name], 
+    [State].[Active] AS [Active]
+    FROM [dbo].[State] AS [State]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UKCompanyDatabase" EntityType="Self.UKCompanyDatabase" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UKCompanyDatabase].[Id] AS [Id], 
+    [UKCompanyDatabase].[CompanyName] AS [CompanyName], 
+    [UKCompanyDatabase].[ CompanyNumber] AS [ CompanyNumber], 
+    [UKCompanyDatabase].[RegAddress CareOf] AS [RegAddress CareOf], 
+    [UKCompanyDatabase].[RegAddress POBox] AS [RegAddress POBox], 
+    [UKCompanyDatabase].[RegAddress AddressLine1] AS [RegAddress AddressLine1], 
+    [UKCompanyDatabase].[ RegAddress AddressLine2] AS [ RegAddress AddressLine2], 
+    [UKCompanyDatabase].[RegAddress PostTown] AS [RegAddress PostTown], 
+    [UKCompanyDatabase].[RegAddress County] AS [RegAddress County], 
+    [UKCompanyDatabase].[RegAddress Country] AS [RegAddress Country], 
+    [UKCompanyDatabase].[RegAddress PostCode] AS [RegAddress PostCode], 
+    [UKCompanyDatabase].[CompanyCategory] AS [CompanyCategory], 
+    [UKCompanyDatabase].[CompanyStatus] AS [CompanyStatus], 
+    [UKCompanyDatabase].[CountryOfOrigin] AS [CountryOfOrigin], 
+    [UKCompanyDatabase].[DissolutionDate] AS [DissolutionDate], 
+    [UKCompanyDatabase].[IncorporationDate] AS [IncorporationDate], 
+    [UKCompanyDatabase].[Accounts AccountRefDay] AS [Accounts AccountRefDay], 
+    [UKCompanyDatabase].[Accounts AccountRefMonth] AS [Accounts AccountRefMonth], 
+    [UKCompanyDatabase].[Accounts NextDueDate] AS [Accounts NextDueDate], 
+    [UKCompanyDatabase].[Accounts LastMadeUpDate] AS [Accounts LastMadeUpDate], 
+    [UKCompanyDatabase].[Accounts AccountCategory] AS [Accounts AccountCategory], 
+    [UKCompanyDatabase].[Returns NextDueDate] AS [Returns NextDueDate], 
+    [UKCompanyDatabase].[Returns LastMadeUpDate] AS [Returns LastMadeUpDate], 
+    [UKCompanyDatabase].[Mortgages NumMortCharges] AS [Mortgages NumMortCharges], 
+    [UKCompanyDatabase].[Mortgages NumMortOutstanding] AS [Mortgages NumMortOutstanding], 
+    [UKCompanyDatabase].[Mortgages NumMortPartSatisfied] AS [Mortgages NumMortPartSatisfied], 
+    [UKCompanyDatabase].[Mortgages NumMortSatisfied] AS [Mortgages NumMortSatisfied], 
+    [UKCompanyDatabase].[SICCode SicText_1] AS [SICCode SicText_1], 
+    [UKCompanyDatabase].[SICCode SicText_2] AS [SICCode SicText_2], 
+    [UKCompanyDatabase].[SICCode SicText_3] AS [SICCode SicText_3], 
+    [UKCompanyDatabase].[SICCode SicText_4] AS [SICCode SicText_4], 
+    [UKCompanyDatabase].[LimitedPartnerships NumGenPartners] AS [LimitedPartnerships NumGenPartners], 
+    [UKCompanyDatabase].[LimitedPartnerships NumLimPartners] AS [LimitedPartnerships NumLimPartners], 
+    [UKCompanyDatabase].[URI] AS [URI], 
+    [UKCompanyDatabase].[PreviousName_1 CONDATE] AS [PreviousName_1 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_1 CompanyName] AS [ PreviousName_1 CompanyName], 
+    [UKCompanyDatabase].[ PreviousName_2 CONDATE] AS [ PreviousName_2 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_2 CompanyName] AS [ PreviousName_2 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_3 CONDATE] AS [PreviousName_3 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_3 CompanyName] AS [ PreviousName_3 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_4 CONDATE] AS [PreviousName_4 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_4 CompanyName] AS [ PreviousName_4 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_5 CONDATE] AS [PreviousName_5 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_5 CompanyName] AS [ PreviousName_5 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_6 CONDATE] AS [PreviousName_6 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_6 CompanyName] AS [ PreviousName_6 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_7 CONDATE] AS [PreviousName_7 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_7 CompanyName] AS [ PreviousName_7 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_8 CONDATE] AS [PreviousName_8 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_8 CompanyName] AS [ PreviousName_8 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_9 CONDATE] AS [PreviousName_9 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_9 CompanyName] AS [ PreviousName_9 CompanyName], 
+    [UKCompanyDatabase].[PreviousName_10 CONDATE] AS [PreviousName_10 CONDATE], 
+    [UKCompanyDatabase].[ PreviousName_10 CompanyName] AS [ PreviousName_10 CompanyName]
+    FROM [dbo].[UKCompanyDatabase] AS [UKCompanyDatabase]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="iBunterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Landline" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Twitter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultValues" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EntityTypeId" Type="Int32" />
+          <Property Name="ContactId" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AddressId" Type="Int32" />
+          <Property Name="Posted" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="EntityType">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EntityTypeId" Type="Int32" />
+          <Property Name="RatingTypeId" Type="Int32" />
+          <Property Name="EntityId" Type="Int32" />
+          <Property Name="Rating1" Type="Int32" />
+          <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Posted" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="RatingType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Entity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="iBunterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Entities" EntityType="Self.Entity" />
+          <EntitySet Name="EntityTypes" EntityType="Self.EntityType" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="RatingTypes" EntityType="Self.RatingType" />
+          <EntitySet Name="Cities" EntityType="iBunterModel.City" />
+          <EntitySet Name="States" EntityType="iBunterModel.State" />
+          <EntitySet Name="Addresses" EntityType="iBunterModel.Address" />
+          <EntitySet Name="UKCompanyDatabase" EntityType="iBunterModel.UKCompanyDatabase" />
+        </EntityContainer>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Postcode" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Road" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UKCompanyDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_CompanyNumber" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_CareOf" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_POBox" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_AddressLine1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_RegAddress_AddressLine2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_PostTown" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_County" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_Country" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RegAddress_PostCode" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCategory" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CountryOfOrigin" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DissolutionDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="IncorporationDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Accounts_AccountRefDay" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Accounts_AccountRefMonth" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Accounts_NextDueDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Accounts_LastMadeUpDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Accounts_AccountCategory" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Returns_NextDueDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Returns_LastMadeUpDate" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Mortgages_NumMortCharges" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Mortgages_NumMortOutstanding" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Mortgages_NumMortPartSatisfied" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Mortgages_NumMortSatisfied" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SICCode_SicText_1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SICCode_SicText_2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SICCode_SicText_3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SICCode_SicText_4" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="LimitedPartnerships_NumGenPartners" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="LimitedPartnerships_NumLimPartners" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="URI" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_1_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_1_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_2_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_2_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_3_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_3_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_4_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_4_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_5_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_5_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_6_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_6_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_7_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_7_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_8_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_8_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_9_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_9_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousName_10_CONDATE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="C_PreviousName_10_CompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="iBunterModelStoreContainer" CdmEntityContainer="iBunterEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="iBunterModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="iBunterModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Landline" ColumnName="Landline" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="iBunterModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DefaultValues" ColumnName="DefaultValues" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="iBunterModel.Entity">
+              <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Posted" ColumnName="Posted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntityTypes">
+            <EntityTypeMapping TypeName="iBunterModel.EntityType">
+              <MappingFragment StoreEntitySet="EntityType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="iBunterModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="RatingTypeId" ColumnName="RatingTypeId" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Rating1" ColumnName="Rating" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+                <ScalarProperty Name="Posted" ColumnName="Posted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RatingTypes">
+            <EntityTypeMapping TypeName="iBunterModel.RatingType">
+              <MappingFragment StoreEntitySet="RatingType">
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="iBunterModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="iBunterModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="iBunterModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Road" ColumnName="Road" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UKCompanyDatabase">
+            <EntityTypeMapping TypeName="iBunterModel.UKCompanyDatabase">
+              <MappingFragment StoreEntitySet="UKCompanyDatabase">
+                <ScalarProperty Name="C_PreviousName_10_CompanyName" ColumnName=" PreviousName_10 CompanyName" />
+                <ScalarProperty Name="PreviousName_10_CONDATE" ColumnName="PreviousName_10 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_9_CompanyName" ColumnName=" PreviousName_9 CompanyName" />
+                <ScalarProperty Name="PreviousName_9_CONDATE" ColumnName="PreviousName_9 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_8_CompanyName" ColumnName=" PreviousName_8 CompanyName" />
+                <ScalarProperty Name="PreviousName_8_CONDATE" ColumnName="PreviousName_8 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_7_CompanyName" ColumnName=" PreviousName_7 CompanyName" />
+                <ScalarProperty Name="PreviousName_7_CONDATE" ColumnName="PreviousName_7 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_6_CompanyName" ColumnName=" PreviousName_6 CompanyName" />
+                <ScalarProperty Name="PreviousName_6_CONDATE" ColumnName="PreviousName_6 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_5_CompanyName" ColumnName=" PreviousName_5 CompanyName" />
+                <ScalarProperty Name="PreviousName_5_CONDATE" ColumnName="PreviousName_5 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_4_CompanyName" ColumnName=" PreviousName_4 CompanyName" />
+                <ScalarProperty Name="PreviousName_4_CONDATE" ColumnName="PreviousName_4 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_3_CompanyName" ColumnName=" PreviousName_3 CompanyName" />
+                <ScalarProperty Name="PreviousName_3_CONDATE" ColumnName="PreviousName_3 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_2_CompanyName" ColumnName=" PreviousName_2 CompanyName" />
+                <ScalarProperty Name="C_PreviousName_2_CONDATE" ColumnName=" PreviousName_2 CONDATE" />
+                <ScalarProperty Name="C_PreviousName_1_CompanyName" ColumnName=" PreviousName_1 CompanyName" />
+                <ScalarProperty Name="PreviousName_1_CONDATE" ColumnName="PreviousName_1 CONDATE" />
+                <ScalarProperty Name="URI" ColumnName="URI" />
+                <ScalarProperty Name="LimitedPartnerships_NumLimPartners" ColumnName="LimitedPartnerships NumLimPartners" />
+                <ScalarProperty Name="LimitedPartnerships_NumGenPartners" ColumnName="LimitedPartnerships NumGenPartners" />
+                <ScalarProperty Name="SICCode_SicText_4" ColumnName="SICCode SicText_4" />
+                <ScalarProperty Name="SICCode_SicText_3" ColumnName="SICCode SicText_3" />
+                <ScalarProperty Name="SICCode_SicText_2" ColumnName="SICCode SicText_2" />
+                <ScalarProperty Name="SICCode_SicText_1" ColumnName="SICCode SicText_1" />
+                <ScalarProperty Name="Mortgages_NumMortSatisfied" ColumnName="Mortgages NumMortSatisfied" />
+                <ScalarProperty Name="Mortgages_NumMortPartSatisfied" ColumnName="Mortgages NumMortPartSatisfied" />
+                <ScalarProperty Name="Mortgages_NumMortOutstanding" ColumnName="Mortgages NumMortOutstanding" />
+                <ScalarProperty Name="Mortgages_NumMortCharges" ColumnName="Mortgages NumMortCharges" />
+                <ScalarProperty Name="Returns_LastMadeUpDate" ColumnName="Returns LastMadeUpDate" />
+                <ScalarProperty Name="Returns_NextDueDate" ColumnName="Returns NextDueDate" />
+                <ScalarProperty Name="Accounts_AccountCategory" ColumnName="Accounts AccountCategory" />
+                <ScalarProperty Name="Accounts_LastMadeUpDate" ColumnName="Accounts LastMadeUpDate" />
+                <ScalarProperty Name="Accounts_NextDueDate" ColumnName="Accounts NextDueDate" />
+                <ScalarProperty Name="Accounts_AccountRefMonth" ColumnName="Accounts AccountRefMonth" />
+                <ScalarProperty Name="Accounts_AccountRefDay" ColumnName="Accounts AccountRefDay" />
+                <ScalarProperty Name="IncorporationDate" ColumnName="IncorporationDate" />
+                <ScalarProperty Name="DissolutionDate" ColumnName="DissolutionDate" />
+                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+                <ScalarProperty Name="CompanyStatus" ColumnName="CompanyStatus" />
+                <ScalarProperty Name="CompanyCategory" ColumnName="CompanyCategory" />
+                <ScalarProperty Name="RegAddress_PostCode" ColumnName="RegAddress PostCode" />
+                <ScalarProperty Name="RegAddress_Country" ColumnName="RegAddress Country" />
+                <ScalarProperty Name="RegAddress_County" ColumnName="RegAddress County" />
+                <ScalarProperty Name="RegAddress_PostTown" ColumnName="RegAddress PostTown" />
+                <ScalarProperty Name="C_RegAddress_AddressLine2" ColumnName=" RegAddress AddressLine2" />
+                <ScalarProperty Name="RegAddress_AddressLine1" ColumnName="RegAddress AddressLine1" />
+                <ScalarProperty Name="RegAddress_POBox" ColumnName="RegAddress POBox" />
+                <ScalarProperty Name="RegAddress_CareOf" ColumnName="RegAddress CareOf" />
+                <ScalarProperty Name="C_CompanyNumber" ColumnName=" CompanyNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

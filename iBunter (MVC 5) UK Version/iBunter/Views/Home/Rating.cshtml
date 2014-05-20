@@ -1,0 +1,68 @@
+﻿
+@model List<iBunter.Models.Product>
+
+<h2>Rate a product list</h2>
+@foreach (var p in Model)
+{
+    <h3>@p.Name <small>@p.Description</small></h3>
+
+    <div class="ratting-item" data-pid="@p.Id">
+        <input class="rating" name="vote" type="radio" value="1" />
+        <input class="rating" name="vote" type="radio" value="2" />
+        <input class="rating" name="vote" type="radio" value="3" />
+        <input class="rating" name="vote" type="radio" value="4" />
+        <input class="rating" name="vote" type="radio" value="5" />
+    </div>
+    <span class="result"></span>
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/rating.js")"></script>
+    <script>
+        $(function () {
+           
+
+            // ratting system: https://github.com/irfan/jquery-star-rating
+            $('.ratting-item').rating(function (vote, event) {
+                var anchor = $(event.currentTarget),
+                    pid = anchor.closest(".ratting-item").data("pid"),
+                    //url = '@Url.Action("RateProduct", "Services")';
+                    url = '@Url.Action("Rating", "Home")';
+
+                // show message while doing the database round trip
+                $('.ratting-item[data-pid=' + pid + ']')
+                    .next()
+                    .text("Placing your vote...");
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    data: { rate: vote, id: pid },
+                    success: function (data) {
+
+                        if (data.success) {
+                            // all went well, here you can say Thank you
+                            $('.ratting-item[data-pid=' + data.pid + ']')
+                                .next()
+                                .text("Voted! (product id: " + data.pid + ")");
+                        }
+                        else {
+                            // There must be an Exception error, let's show it
+                            $('.ratting-item[data-pid=' + data.pid + ']')
+                                .next()
+                                .text("Something went wrong...");
+                        }
+                    },
+                    error: function (err) {
+                        // the call thrown an error
+                        $('.result').text(err);
+                    },
+                    complete: function () {
+                        //$(".loading").hide();
+                    }
+                });
+            });
+
+        });
+    </script>
+}
