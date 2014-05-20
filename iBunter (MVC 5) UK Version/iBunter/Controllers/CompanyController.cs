@@ -82,12 +82,14 @@ namespace iBunter.Controllers
 
         public JsonResult findCompany(string term)               
         {            
-            var _vCompany = db.UKCompanyDatabase.Where(item => item.CompanyName.ToLower().StartsWith(term.ToLower())).Select(o => new{ o.CompanyName, o.RegAddress_PostCode, o.RegAddress_AddressLine1, o.C_RegAddress_AddressLine2, o.RegAddress_Country, o.RegAddress_PostTown}).Take(10).ToList();
-            //var _vCities = db.Cities.Where(item => item.CountryId == _iId).ToDictionary(item => item.Id.ToString(), item => item.Name);
+            var _vCompany = db.UKCompanyDatabase.Where(item => item.CompanyName.ToLower().StartsWith(term.ToLower())).Select(o =>  o.CompanyName).Take(10).ToList();
 
-            //var suggestions = from s in db.Students
-            //                  select s.FirstMidName;
-            //var namelist = suggestions.Where(n => n.ToLower().StartsWith(searchstring.ToLower()));
+            return Json(_vCompany, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getCompanyData(string companyname)
+        {
+            var _vCompany = db.UKCompanyDatabase.Where(item => item.CompanyName.ToLower().StartsWith(companyname.ToLower())).Select(o => new { o.CompanyName, o.RegAddress_PostCode, o.RegAddress_AddressLine1, o.C_RegAddress_AddressLine2, o.RegAddress_Country, o.RegAddress_PostTown, o.URI }).Take(1).ToList();
 
             return Json(_vCompany, JsonRequestBehavior.AllowGet);
         }

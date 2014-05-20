@@ -347,9 +347,31 @@ and finally populate it to the city dropdown
             source: url = '@Url.Action("findCompany")', 
             minLength: 1,
             select: function (event, ui) {                
-                if (ui.item) {                    
+                if (ui.item) {
+
                     $('#CompanyName').val(ui.item.value);
                     $('#Postcode').val(ui.item.value);
+
+                    $.ajax({
+                        url: '@Url.Action("getCompanyData")',
+                        type: "GET",
+                        data: { companyname: ui.item.value},
+                        success: function (data) {
+                            $('#Postcode').val(data[0].RegAddress_PostCode);
+                            $('#Number').val(data[0].C_RegAddress_AddressLine2);
+                            $('#Street').val(data[0].RegAddress_AddressLine1);
+                            $('#Country').val(data[0].RegAddress_Country);
+                            $('#City').val(data[0].RegAddress_PostTown);
+                            //$('#Website').val(data[0].URI);
+                        },
+                        error: function (err) {
+                            // the call thrown an error    
+                            alert("error");
+                        },
+                        complete: function () {
+                            //$(".loading").hide();                            
+                        }
+                    });
                 }
             },
             search: function (event, ui) {
@@ -361,7 +383,7 @@ and finally populate it to the city dropdown
                 if (ui.content.length === 0) {
                     $(".ui-menu-item").hide();
                 }                
-            }
+            }            
         });
         });
 
@@ -410,3 +432,4 @@ and finally populate it to the city dropdown
     });
     </script>
 }
+
