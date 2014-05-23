@@ -115,6 +115,11 @@ namespace iBunter.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    Address _dbAddress = new Address();
+                    _dbAddress.CityId = 1;
+                    _dbAddress.CountryId = 2;
+                    _dbAddress.Postcode = company.Postcode;
+
                     db.SaveChanges();
                     var sw = collection["Country"];
                     // TODO: Add insert logic here

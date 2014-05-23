@@ -21,6 +21,13 @@ label.error {
      font-weight:normal;
 }
 
+customlabelerror {
+     color: #b94a48;
+     font-size: 14px;
+     font-family: "Arial";
+     font-weight:normal;
+}
+
 .panel-not-filled {
     display:none;
 }

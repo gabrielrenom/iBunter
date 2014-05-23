@@ -48,6 +48,7 @@ warning 6002: The table/view 'iBunter.dbo.Contact' does not have a primary key d
           <Property Name="Mobile" Type="nvarchar" MaxLength="25" />
           <Property Name="Twitter" Type="nvarchar" MaxLength="50" />
           <Property Name="Facebook" Type="nvarchar" MaxLength="50" />
+          <Property Name="Alias" Type="nchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'iBunter.dbo.Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -226,7 +227,8 @@ warning 6002: The table/view 'iBunter.dbo.UKCompanyDatabase' does not have a pri
     [Contact].[Landline] AS [Landline], 
     [Contact].[Mobile] AS [Mobile], 
     [Contact].[Twitter] AS [Twitter], 
-    [Contact].[Facebook] AS [Facebook]
+    [Contact].[Facebook] AS [Facebook], 
+    [Contact].[Alias] AS [Alias]
     FROM [dbo].[Contact] AS [Contact]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Country" EntityType="Self.Country" store:Type="Tables" store:Schema="dbo">
@@ -367,6 +369,7 @@ warning 6002: The table/view 'iBunter.dbo.UKCompanyDatabase' does not have a pri
           <Property Name="Mobile" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Twitter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Alias" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -543,6 +546,7 @@ warning 6002: The table/view 'iBunter.dbo.UKCompanyDatabase' does not have a pri
           <EntitySetMapping Name="Contacts">
             <EntityTypeMapping TypeName="iBunterModel.Contact">
               <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="First_Name" ColumnName="First Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\spAdmin\Documents\Visual Studio 2013\Projects\iBunter\iBunter\Models\iBunterModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\spAdmin\Documents\GitHub\iBunter\iBunter (MVC 5) UK Version\iBunter\Models\iBunterModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

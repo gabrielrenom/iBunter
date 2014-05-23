@@ -55,11 +55,18 @@
                                                 @Html.ValidationMessageFor(model => model.Website)
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Alias, new { @class = "control-label col-md-2 entry-form-font-colour" })
+                                            <div class="col-md-10">
+ @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Alias)
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4 entry-form-font-colour">
                                         <blockquote>
                                             <p>Company Details.</p>
-                                            <footer>Introduce the name of the company details where you work or have been working.</footer>
+                                            <footer>Introduce the name of the company details where you work or have been working. You can introduce the ""Alias" of the company (how people normally call it).</footer>
                                         </blockquote>
 
                                     </div>
@@ -229,11 +236,17 @@
                         <div id="collapseFour" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-8 entry-form-font-colour">
-                                        <div class="form-group">
+                                    <div class="col-md-8 entry-form-font-colour">                                        
+                                        
+                                        <div class="form-group">   
+                                            <div id="ratingerror"  class="row" style="margin: 0.5em; display: none;">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-10">
+                                                    <label style="color: #b94a48; font-size: 14px; font-family:'Arial'; font-weight: normal; ">Please rate all categories.</label>
+                                                </div>
+                                            </div>                                         
                                             @Html.Partial("_Rating", Model)
                                         </div>
-
                                     </div>
                                     <div class="col-md-4 entry-form-font-colour">
                                         <blockquote>
@@ -246,7 +259,7 @@
                                     <div class="col-md-10">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" value="Submit Feedback" class="btn btn-primary" />
+                                        <input id="submitform" type="submit" value="Submit Feedback" class="btn btn-primary" />
                                     </div>
                                 </div>
                             </div>
@@ -259,6 +272,7 @@
         </div>
     </div>
 
+ 
 
 @*
 The following jquery code finds the selected option from country dropdown 
@@ -268,6 +282,8 @@ and finally populate it to the city dropdown
 
     
 }
+<input id="ratingvalidation" type="text" name="ratingvalidation" style="display:none;">
+
 @section scripts {
 <script type="text/javascript">
     $('body').on('change', '.combocountry', function () {
@@ -308,6 +324,10 @@ and finally populate it to the city dropdown
         }
 </style>
     <script>
+        $.validator.addMethod("customrule", function (value, element, param) {
+            return this.optional(element) || value === param;
+        }, "You must enter {0}");
+
     $("form").validate({
         rules: {
             'CompanyName': {
@@ -320,8 +340,13 @@ and finally populate it to the city dropdown
             'Feedback':
            {
                required: true
+           },
+            'ratingvalidation':
+           {
+               required: true, 
+               min: 0, 
+               max: 0 
            }
-
         },
         messages: {
             Country: { required: "Please select a Country from the list.", },
@@ -331,6 +356,19 @@ and finally populate it to the city dropdown
             Feedback: { required: "Please insert the feedback.", },
         }
     });
+
+    $("#submitform").click(function () {
+        if ($("#ratingvalidation").val() !== "0")
+        {
+            $("#ratingerror").show();
+        }
+        else
+        {
+            $("#ratingerror").hide();
+        }
+    });
+
+    $("#ratingvalidation").val(@Model.Rating.Count);
 
     $("#firstsection").click(function () {
         $("#paneltwo").fadeIn();
@@ -395,6 +433,13 @@ and finally populate it to the city dropdown
                 pid = anchor.closest(".ratting-item").data("pid"),
                 url = '@Url.Action("Create", "Company")';
 
+            var rated = $('.ratting-item[data-pid=' + pid + ']').next();
+
+            if (rated.text() === "")
+            {                                
+                $("#ratingvalidation").val(eval($("#ratingvalidation").val() - 1));
+            }
+            
             // show message while doing the database round trip
             $('.ratting-item[data-pid=' + pid + ']')
                 .next()
@@ -404,7 +449,10 @@ and finally populate it to the city dropdown
                 url: url,
                 type: "GET",
                 data: { rate: vote, id: pid },
-                success: function (data) {
+                success: function (data) {                    
+                    $('.result').each(function (i, obj) {
+                        var s = i;
+                    });
 
                     if (data.success) {
                         // all went well, here you can say Thank you

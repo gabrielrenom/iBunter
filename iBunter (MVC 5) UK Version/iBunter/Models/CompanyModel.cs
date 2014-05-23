@@ -27,6 +27,9 @@ namespace iBunter.Models
         [Required(ErrorMessage = "Please insert the company name.")]
         public string CompanyName { get; set; }
 
+        [Display(Name = "Alias:")]
+        public string Alias { get; set; }
+
         [Display(Name = "Website:")]
         public string Website { get; set; }
 
